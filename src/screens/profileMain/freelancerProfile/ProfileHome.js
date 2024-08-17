@@ -91,22 +91,13 @@ const ProfileHome = ({ navigation }) => {
 
     navigation.navigate("DeleteModule");
     setTimeout(() => {
-      // Call the soft delete API
-      softDeleteAccount(user?._id)
-        .then((response) => {
-          dispatch(setAppLoading(false));
-          console.log("Account has been deleted^", response);
-
-          dispatch(logout());
-
-          // Navigate to a different screen if needed, or show a confirmation message
-        })
-        .catch((err) => {
-          dispatch(setAppLoading(false));
-          console.error("Error deleting account:", err);
-          // Handle error as needed
-        });
-    }, 2500);
+      dispatch(logout());
+      softDeleteAccount(user?._id);
+      Alert.alert("Success!, we hope to see you again soon!");
+      setTimeout(() => {
+        Alert.alert("Restart your application for all changes to go through");
+      }, 3000);
+    }, 6000);
   };
   return (
     <MainBackground showButler={true}>
@@ -265,12 +256,7 @@ const ProfileHome = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <View
-                style={[
-                  styles.userDataRow,
-                  { borderBottomWidth: 0, marginBottom: 5 },
-                ]}
-              >
+              <View style={styles.userDataRow}>
                 <Text style={styles.userFieldTxt}>Logout:</Text>
                 <TouchableOpacity
                   style={{ flex: 2 }}
@@ -287,6 +273,26 @@ const ProfileHome = ({ navigation }) => {
                 >
                   <Text style={[styles.userValueTxt, styles.userUnderLineTxt]}>
                     Logout
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.userDataRow}>
+                <Text style={styles.userFieldTxt}>Delete Account:</Text>
+                <TouchableOpacity
+                  style={{ flex: 2 }}
+                  onPress={() => {
+                    console.log("Deleted");
+                    setDeletionVisible(true)
+                  }}
+                >
+                  <Text
+                    style={[
+                      styles.userValueTxt,
+                      styles.userUnderLineTxt,
+                      { color: "red" },
+                    ]}
+                  >
+                    Delete Account
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -313,6 +319,37 @@ const ProfileHome = ({ navigation }) => {
           source={R.images.birds}
         />
       </View>
+      {/* Logout Dialog */}
+      <Dialog.Container visible={visible}>
+        <Dialog.Title>Logout</Dialog.Title>
+        <Dialog.Description>Are you sure want to logout?</Dialog.Description>
+        <Dialog.Button
+          label="Cancel"
+          onPress={() => setVisible(false)}
+          color="green"
+        />
+        <Dialog.Button label="OK" onPress={handleLogout} />
+      </Dialog.Container>
+
+      {/* Account Deletion Dialog */}
+      <Dialog.Container visible={deletionVisible}>
+        <Dialog.Title>Account Deletion</Dialog.Title>
+        <Dialog.Description>Are you sure want to delete?</Dialog.Description>
+
+        <Dialog.Button
+          label="Delete"
+          onPress={() => {
+            handleDeleteAccount();
+            //add other functions later if necessary
+          }}
+          color="red"
+        />
+        <Dialog.Button
+          label="Cancel"
+          onPress={() => setDeletionVisible(false)}
+          color="green"
+        />
+      </Dialog.Container>
     </MainBackground>
   );
 };

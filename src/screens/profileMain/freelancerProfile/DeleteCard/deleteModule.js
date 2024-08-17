@@ -77,7 +77,7 @@ export default DeleteConfirmation;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: R.colors.DarkColorGreen,
+    backgroundColor: R.colors.GreenDarkColor,
     justifyContent: "center",
     alignItems: "center",
   },

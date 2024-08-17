@@ -39,28 +39,15 @@ const ProfileHome = ({ navigation }) => {
 
     navigation.navigate("DeleteModule");
     setTimeout(() => {
-      // Call the soft delete API
-      softDeleteAccount(user?._id)
-        .then((response) => {
-          dispatch(setAppLoading(false));
-          console.log("Account has been deleted^", response);
-
-          dispatch(logout());
-
-          // Navigate to a different screen if needed, or show a confirmation message
-          
-        })
-        .catch((err) => {
-          dispatch(setAppLoading(false));
-          console.error("Error deleting account:", err);
-          // Handle error as needed
-        });
-    }, 2500);
-    
+      
+        dispatch(logout());
+        softDeleteAccount(user?._id);
+        Alert.alert("Success!, we hope to see you again soon!")
+        setTimeout(() => {
+          Alert.alert("Restart your application for all changes to go through")
+        }, 3000);
+    }, 6000);
   };
-
-
-
 
   return (
     <MainBackground showButler={true}>

@@ -9,6 +9,7 @@ import ChangePassword from "../freelancerProfile/ChangePassword";
 import Categories from "../freelancerProfile/Categories";
 import About from "../freelancerProfile/About";
 import SupportChatList from "../../chatsMain/SupportChatList";
+import DeleteModule from "../freelancerProfile/DeleteCard/deleteModule"
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,11 @@ const FreelancerProfileNav = () => {
       <Stack.Screen
         name="SupportChatList"
         component={SupportChatList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DeleteModule"
+        component={DeleteModule}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

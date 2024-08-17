@@ -4,6 +4,7 @@ import {
   postRequest,
   putRequest,
   RNFetchBlobPutRequest,
+  deleteRequest
 } from "./api";
 import { handleError } from "../utils/error";
 import RNFetchBlob from "react-native-blob-util";
@@ -23,6 +24,20 @@ export async function getAllCatagory() {
     }
   });
 }
+export async function softDeleteAccount(userId) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await deleteRequest(`/user/delete-account/${userId}`, {});
+      console.log("Account successfully soft deleted:", response);
+      resolve(response);
+    } catch (error) {
+      console.log("Error during soft delete:", error);
+      handleError(error?.response?.data || "");
+      reject(error?.response?.data || "");
+    }
+  });
+}
+
 
 export async function getCatagorySkills(id) {
   return new Promise(async (resolve, reject) => {

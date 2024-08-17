@@ -1,6 +1,7 @@
 const images = {
   signinBanner: require("./signin_banner.png"),
   signupBanner: require("./signup_banner.png"),
+  deleteLeaves: require("./deleteLeaves.png"),
   signupLoadingBanner: require("./signup_loading_banner.png"),
   signupApproval: require("./signup_approval.png"),
   skillsRequest: require("./skills_request.png"),

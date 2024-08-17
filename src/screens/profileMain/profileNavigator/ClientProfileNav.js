@@ -8,6 +8,7 @@ import ChangePassword from "../clientProfile/ChangePassword";
 import PaymentCardsList from "../clientProfile/PaymentCardsList";
 import AddNewCard from "../clientProfile/AddNewCard";
 import SupportChatList from "../../chatsMain/SupportChatList";
+import DeleteModule from "../clientProfile/DeleteCard/deleteModule"
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,13 @@ const ClientProfileNav = () => {
         name="SupportChatList"
         component={SupportChatList}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DeleteModule"
+        component={DeleteModule}
+        options={{ headerShown: false,
+          
+        }}
       />
     </Stack.Navigator>
   );

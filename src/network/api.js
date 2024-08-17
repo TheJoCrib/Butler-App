@@ -19,6 +19,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = getApiHeaders();
+
   // console.log('headers', config.headers, token)
   if (config.headers && token) {
     config.headers[headerKeys.AccessToken] = "Bearer " + token;
@@ -191,6 +192,7 @@ export function getRequest(url, params) {
 }
 
 export function deleteRequest(url, body) {
+  console.log(`Deleting at URL: ${API_ENDPOINT + url}`);
   return new Promise((resolve, reject) => {
     api
       .delete(url, { data: body })
@@ -198,6 +200,7 @@ export function deleteRequest(url, body) {
         resolve(response);
       })
       .catch((error) => {
+        console.log("Error during DELETE request:", error);
         reject(error);
       });
   });

@@ -17,6 +17,8 @@ import { getAllCatagory, getCatagorySkills } from "../../../network/userApi";
 import { setAppLoading } from "../../../modules/general/actions";
 import RoundedBG2 from "../../../containers/common/RoundedBG2";
 import { Image } from "react-native";
+import Dialog from "react-native-dialog";
+import { softDeleteAccount } from "../../../network/userApi";
 
 const MAX_LINES = 3;
 const ProfileHome = ({ navigation }) => {
@@ -26,6 +28,8 @@ const ProfileHome = ({ navigation }) => {
   const [moreBtn, setMoreBtn] = useState(null);
   const textRef = useRef(null);
   const text2Ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  const [deletionVisible, setDeletionVisible] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -74,6 +78,35 @@ const ProfileHome = ({ navigation }) => {
         {user?.aboutMe}
       </Text>
     );
+  };
+
+  const handleLogout = () => {
+    setVisible(false);
+    dispatch(logout());
+  };
+
+  const handleDeleteAccount = () => {
+    setDeletionVisible(false);
+    dispatch(setAppLoading(true));
+
+    navigation.navigate("DeleteModule");
+    setTimeout(() => {
+      // Call the soft delete API
+      softDeleteAccount(user?._id)
+        .then((response) => {
+          dispatch(setAppLoading(false));
+          console.log("Account has been deleted^", response);
+
+          dispatch(logout());
+
+          // Navigate to a different screen if needed, or show a confirmation message
+        })
+        .catch((err) => {
+          dispatch(setAppLoading(false));
+          console.error("Error deleting account:", err);
+          // Handle error as needed
+        });
+    }, 2500);
   };
   return (
     <MainBackground showButler={true}>

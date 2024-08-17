@@ -1,3 +1,16 @@
 {
-  "name": "Butler"
+  "expo": {
+    "name": "butler",
+    "extra": {
+      "eas": {
+        "projectId": "4ec4c101-f76a-432b-8ea9-5e3b03950915"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.butlerapp.ios"
+    },
+    "android": {
+      "package": "com.butlerapp.ios"
+    }
+  }
 }

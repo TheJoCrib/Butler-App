@@ -34,28 +34,33 @@ const ChatHome = ({ navigation }) => {
   const dispatch = useDispatch();
   // console.log("red chat==", supportChats);
 
-  useEffect(async () => {
-    dispatch(setAppLoading(true));
-    const [supportRes, discRes, activeRes] = await Promise.all([
-      getSupportChat(100, 1),
-      getDiscussionChat(100, 1),
-      getActiveChat(
-        user?.userType == "client" ? "client" : "freelancer",
-        100,
-        1
-      ),
-    ]);
-    dispatch(setAppLoading(false));
-    if (supportRes[0].data) {
-      dispatch(setSupportChats(supportRes[0].data));
+  useEffect(() => {
+    async function fetchData() {
+      dispatch(setAppLoading(true));
+      const [supportRes, discRes, activeRes] = await Promise.all([
+        getSupportChat(100, 1),
+        getDiscussionChat(100, 1),
+        getActiveChat(
+          user?.userType == "client" ? "client" : "freelancer",
+          100,
+          1
+        ),
+      ]);
+      dispatch(setAppLoading(false));
+
+      if (supportRes[0].data) {
+        dispatch(setSupportChats(supportRes[0].data));
+      }
+      if (discRes[0].data) {
+        dispatch(setDiscussionChats(discRes[0].data));
+      }
+      if (activeRes[0].data) {
+        dispatch(setActiveChats(activeRes[0].data));
+      }
     }
-    if (discRes[0].data) {
-      dispatch(setDiscussionChats(discRes[0].data));
-    }
-    if (activeRes[0].data) {
-      dispatch(setActiveChats(activeRes[0].data));
-    }
-  }, []);
+
+    fetchData();
+  }, [dispatch, user]);
 
   return (
     <MainBackground showButler>

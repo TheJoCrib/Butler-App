@@ -18,10 +18,50 @@ import { getAllCards } from "../../../network/paymentApi";
 import { setCardsList } from "../../../modules/jobsCards.js/actions";
 import RoundedBG2 from "../../../containers/common/RoundedBG2";
 import { Platform } from "react-native";
+import Dialog from "react-native-dialog"
+import { softDeleteAccount } from "../../../network/userApi";
+
 
 const ProfileHome = ({ navigation }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
+  const [deletionVisible, setDeletionVisible] = useState(false);
+
+  const handleLogout = () => {
+    setVisible(false);
+    dispatch(logout());
+  };
+
+  const handleDeleteAccount = () => {
+    setDeletionVisible(false);
+    dispatch(setAppLoading(true));
+
+    navigation.navigate("DeleteModule");
+    setTimeout(() => {
+      // Call the soft delete API
+      softDeleteAccount(user?._id)
+        .then((response) => {
+          dispatch(setAppLoading(false));
+          console.log("Account has been deleted^", response);
+
+          dispatch(logout());
+
+          // Navigate to a different screen if needed, or show a confirmation message
+          
+        })
+        .catch((err) => {
+          dispatch(setAppLoading(false));
+          console.error("Error deleting account:", err);
+          // Handle error as needed
+        });
+    }, 2500);
+    
+  };
+
+
+
+
   return (
     <MainBackground showButler={true}>
       <Text
@@ -137,12 +177,7 @@ const ProfileHome = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View
-              style={[
-                styles.userDataRow,
-                { paddingBottom: 20, borderBottomWidth: 0 },
-              ]}
-            >
+            <View style={styles.userDataRow}>
               <Text style={styles.userFieldTxt}>Logout:</Text>
               <TouchableOpacity
                 style={{ flex: 2 }}
@@ -159,6 +194,22 @@ const ProfileHome = ({ navigation }) => {
               >
                 <Text style={[styles.userValueTxt, styles.userUnderLineTxt]}>
                   Logout
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={[
+                styles.userDataRow,
+                { paddingBottom: 20, borderBottomWidth: 0 },
+              ]}
+            >
+              <Text style={styles.userFieldTxt}>Delete Account:</Text>
+              <TouchableOpacity
+                style={{ flex: 2 }}
+                onPress={() => setDeletionVisible(true)}
+              >
+                <Text style={[styles.userValueTxt, styles.userUnderLineTxt]}>
+                  <Text style={{ color: R.colors.Red }}>Delete Account</Text>
                 </Text>
               </TouchableOpacity>
             </View>
@@ -184,6 +235,37 @@ const ProfileHome = ({ navigation }) => {
           source={R.images.birds}
         />
       </View>
+      {/* Logout Dialog */}
+      <Dialog.Container visible={visible}>
+        <Dialog.Title>Logout</Dialog.Title>
+        <Dialog.Description>Are you sure want to logout?</Dialog.Description>
+        <Dialog.Button
+          label="Cancel"
+          onPress={() => setVisible(false)}
+          color="green"
+        />
+        <Dialog.Button label="OK" onPress={handleLogout} />
+      </Dialog.Container>
+
+      {/* Account Deletion Dialog */}
+      <Dialog.Container visible={deletionVisible}>
+        <Dialog.Title>Account Deletion</Dialog.Title>
+        <Dialog.Description>Are you sure want to delete?</Dialog.Description>
+
+        <Dialog.Button
+          label="Delete"
+          onPress={() => {
+            handleDeleteAccount();
+            //add other functions later if necessary
+          }}
+          color="red"
+        />
+        <Dialog.Button
+          label="Cancel"
+          onPress={() => setDeletionVisible(false)}
+          color="green"
+        />
+      </Dialog.Container>
     </MainBackground>
   );
 };

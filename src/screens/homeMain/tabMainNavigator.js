@@ -203,6 +203,8 @@ function TabMainNavigator({ navigation }) {
               return { display: "none" };
             } else if (routeName === "ChangePassword") {
               return { display: "none" };
+            } else if (routeName === "DeleteModule") {
+              return { display: "none" };
             }
             return { height: hp("10.5%") };
           })(route),

@@ -8,6 +8,7 @@ import AppContainer from "./src/containers/appContainer";
 import FlashMessage from "react-native-flash-message";
 import Toast from "react-native-toast-notifications";
 import { Text, View } from "react-native";
+import "./src/utils/logBoxRendering"
 
 export const { store, persistor } = configureStore();
 
@@ -28,3 +29,4 @@ class App extends Component {
 }
 
 export default App;
+;

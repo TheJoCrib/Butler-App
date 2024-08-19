@@ -2,7 +2,7 @@ export default ({ config }) => ({
   ...config,
   name: "Butler",
   slug: "butler",
-  version: "3.5.8",
+  version: "3.6.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "light",
@@ -14,11 +14,11 @@ export default ({ config }) => ({
   updates: {
     fallbackToCacheTimeout: 0,
   },
-  assetBundlePatterns: ["**/*"],
+  assetBundlePatterns: ["**/*", "assets/fonts/*"],
   ios: {
     supportsTablet: false,
     bundleIdentifier: "com.butlerapp.ios",
-    buildNumber: "3.5.8",
+    buildNumber: "3.6.0",
     infoPlist: {
       NSMicrophoneUsageDescription:
         "This app needs access to your microphone to record audio to be able to send your voice message to Butler Support for easier communication.",
@@ -47,7 +47,7 @@ export default ({ config }) => ({
   web: {
     favicon: "./assets/icon.png",
   },
-  plugins: ["expo-dev-client"],
+  plugins: ["expo-dev-client", "expo-font"],
   extra: {
     eas: {
       projectId: "09cb2470-650b-446b-9570-fe5e59efd1a6",

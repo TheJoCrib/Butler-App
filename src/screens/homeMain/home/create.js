@@ -82,6 +82,7 @@ const CreateJob = (props) => {
     // if (!category) {
     return (
       <View style={{}}>
+
         <Text
           style={{
             fontFamily: R.fonts.BalooBhai_regular,
@@ -94,6 +95,7 @@ const CreateJob = (props) => {
         >
           Choose a Category
         </Text>
+
         <Categories
           categoriesList={categoryList}
           onSelectCategory={selectCategory}

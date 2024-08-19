@@ -6,12 +6,12 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import configureStore from "./src/config-store";
 import AppContainer from "./src/containers/appContainer";
 import FlashMessage from "react-native-flash-message";
+import * as Font from "expo-font";
 import Toast from "react-native-toast-notifications";
 import { Text, View } from "react-native";
 import "./src/utils/logBoxRendering"
 
 export const { store, persistor } = configureStore();
-
 class App extends Component {
   render() {
     return (
@@ -29,4 +29,3 @@ class App extends Component {
 }
 
 export default App;
-;

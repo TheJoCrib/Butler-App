@@ -9,6 +9,7 @@ const images = {
   patternTop: require("./patternTop.png"),
   otpCodeBanner: require("./otpCodeBanner.png"),
   clock: require("./clock.png"),
+  singleLogo: require("./bLogo.png"),
   HomeImg: require("./HomeImg.png"),
   FeedBack: require("./feedBackImg.png"),
   thanks: require("./thanks.png"),

@@ -2,7 +2,7 @@ export default ({ config }) => ({
   ...config,
   name: "Butler",
   slug: "butler",
-  version: "3.6.0",
+  version: "3.6.2",
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "light",
@@ -18,7 +18,7 @@ export default ({ config }) => ({
   ios: {
     supportsTablet: false,
     bundleIdentifier: "com.butlerapp.ios",
-    buildNumber: "3.6.0",
+    buildNumber: "3.6.2",
     infoPlist: {
       NSMicrophoneUsageDescription:
         "This app needs access to your microphone to record audio to be able to send your voice message to Butler Support for easier communication.",

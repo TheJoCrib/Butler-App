@@ -9,7 +9,7 @@
     "ios": {
       "bundleIdentifier": "com.butlerapp.ios",
       "entitlements": {
-        "aps-environment": "production"
+        "aps-environment": "development"
       }
     },
     "android": {

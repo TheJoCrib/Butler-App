@@ -21,7 +21,7 @@ const designer = [
     __v: 0,
     _id: "6477fbac45478ef0d9005d2b",
     name: "Logos",
-    img: R.images.Logos,
+    img: R.images.singleLogo,
     path: ",Designers,",
     info: "Our logo designers will craft unique and memorable logos that embody your brand’s identity, blending creativity and professionalism.",
   },

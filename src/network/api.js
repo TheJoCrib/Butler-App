@@ -55,6 +55,7 @@ api.interceptors.response.use(
 
 function getApiHeaders() {
   // console.log("store.getState()", store.getState());
+  console.log(store.getState().auth.token);
   return store.getState().auth.token;
 }
 
@@ -69,7 +70,6 @@ function handleTokenError() {
 }
 
 export function postRequest(url, body) {
- 
   return new Promise((resolve, reject) => {
     api
       .post(url, body)

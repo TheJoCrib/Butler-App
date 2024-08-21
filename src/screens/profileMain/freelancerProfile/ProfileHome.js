@@ -80,11 +80,6 @@ const ProfileHome = ({ navigation }) => {
     );
   };
 
-  const handleLogout = () => {
-    setVisible(false);
-    dispatch(logout());
-  };
-
   const handleDeleteAccount = () => {
     setDeletionVisible(false);
     dispatch(setAppLoading(true));
@@ -99,6 +94,7 @@ const ProfileHome = ({ navigation }) => {
       }, 3000);
     }, 6000);
   };
+
   return (
     <MainBackground showButler={true}>
       <Text
@@ -261,14 +257,7 @@ const ProfileHome = ({ navigation }) => {
                 <TouchableOpacity
                   style={{ flex: 2 }}
                   onPress={() => {
-                    Alert.alert("Logout", "Are you sure want to logout", [
-                      {
-                        text: "Cancel",
-                        onPress: () => console.log("Cancel Pressed"),
-                        style: "cancel",
-                      },
-                      { text: "OK", onPress: () => dispatch(logout()) },
-                    ]);
+                    setVisible(true);
                   }}
                 >
                   <Text style={[styles.userValueTxt, styles.userUnderLineTxt]}>
@@ -282,7 +271,7 @@ const ProfileHome = ({ navigation }) => {
                   style={{ flex: 2 }}
                   onPress={() => {
                     console.log("Deleted");
-                    setDeletionVisible(true)
+                    setDeletionVisible(true);
                   }}
                 >
                   <Text
@@ -319,16 +308,20 @@ const ProfileHome = ({ navigation }) => {
           source={R.images.birds}
         />
       </View>
-      {/* Logout Dialog */}
       <Dialog.Container visible={visible}>
-        <Dialog.Title>Logout</Dialog.Title>
+        <Dialog.Title>Confirmation</Dialog.Title>
         <Dialog.Description>Are you sure want to logout?</Dialog.Description>
+
+        <Dialog.Button
+          label="Logout"
+          onPress={() => dispatch(logout(), setVisible(false))}
+          color="red"
+        />
         <Dialog.Button
           label="Cancel"
           onPress={() => setVisible(false)}
           color="green"
         />
-        <Dialog.Button label="OK" onPress={handleLogout} />
       </Dialog.Container>
 
       {/* Account Deletion Dialog */}

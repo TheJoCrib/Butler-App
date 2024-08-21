@@ -26,7 +26,7 @@ class App extends Component {
     await this.loadFonts();
     setTimeout(() => {
       SplashScreen.hideAsync(); // Hide splash screen after the delay
-    }, 3000); // Adjust the delay time as needed (3000 ms = 3 seconds)
+    }, 1500); // Adjust the delay time as needed (3000 ms = 3 seconds)
   }
 
   loadFonts = async () => {

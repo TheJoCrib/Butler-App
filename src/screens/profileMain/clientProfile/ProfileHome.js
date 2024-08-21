@@ -18,9 +18,8 @@ import { getAllCards } from "../../../network/paymentApi";
 import { setCardsList } from "../../../modules/jobsCards.js/actions";
 import RoundedBG2 from "../../../containers/common/RoundedBG2";
 import { Platform } from "react-native";
-import Dialog from "react-native-dialog"
+import Dialog from "react-native-dialog";
 import { softDeleteAccount } from "../../../network/userApi";
-
 
 const ProfileHome = ({ navigation }) => {
   const { user } = useSelector((state) => state.auth);
@@ -28,24 +27,18 @@ const ProfileHome = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [deletionVisible, setDeletionVisible] = useState(false);
 
-  const handleLogout = () => {
-    setVisible(false);
-    dispatch(logout());
-  };
-
   const handleDeleteAccount = () => {
     setDeletionVisible(false);
     dispatch(setAppLoading(true));
 
     navigation.navigate("DeleteModule");
     setTimeout(() => {
-      
-        dispatch(logout());
-        softDeleteAccount(user?._id);
-        Alert.alert("Success!, we hope to see you again soon!")
-        setTimeout(() => {
-          Alert.alert("Restart your application for all changes to go through")
-        }, 3000);
+      dispatch(logout());
+      softDeleteAccount(user?._id);
+      Alert.alert("Success!, we hope to see you again soon!");
+      setTimeout(() => {
+        Alert.alert("Restart your application for all changes to go through");
+      }, 3000);
     }, 6000);
   };
 
@@ -168,16 +161,7 @@ const ProfileHome = ({ navigation }) => {
               <Text style={styles.userFieldTxt}>Logout:</Text>
               <TouchableOpacity
                 style={{ flex: 2 }}
-                onPress={() => {
-                  Alert.alert("Logout", "Are you sure want to logout", [
-                    {
-                      text: "Cancel",
-                      onPress: () => console.log("Cancel Pressed"),
-                      style: "cancel",
-                    },
-                    { text: "OK", onPress: () => dispatch(logout()) },
-                  ]);
-                }}
+                onPress={() => setVisible(true)}
               >
                 <Text style={[styles.userValueTxt, styles.userUnderLineTxt]}>
                   Logout
@@ -222,21 +206,26 @@ const ProfileHome = ({ navigation }) => {
           source={R.images.birds}
         />
       </View>
-      {/* Logout Dialog */}
+
       <Dialog.Container visible={visible}>
-        <Dialog.Title>Logout</Dialog.Title>
+        <Dialog.Title>Confirmation</Dialog.Title>
         <Dialog.Description>Are you sure want to logout?</Dialog.Description>
+
+        <Dialog.Button
+          label="Logout"
+          onPress={() => dispatch(logout(), setVisible(false))}
+          color="red"
+        />
         <Dialog.Button
           label="Cancel"
           onPress={() => setVisible(false)}
           color="green"
         />
-        <Dialog.Button label="OK" onPress={handleLogout} />
       </Dialog.Container>
 
       {/* Account Deletion Dialog */}
       <Dialog.Container visible={deletionVisible}>
-        <Dialog.Title>Account Deletion</Dialog.Title>
+        <Dialog.Title>Confirmation</Dialog.Title>
         <Dialog.Description>Are you sure want to delete?</Dialog.Description>
 
         <Dialog.Button

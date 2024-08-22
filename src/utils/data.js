@@ -101,7 +101,7 @@ function getImageByName(name) {
       image = R.images.Flayer;
       break;
     case "Logos":
-      image = R.images.Logos;
+      image = R.images.singleLogo;
       break;
     case "Merchandise":
       image = R.images.Merchandies;
@@ -125,7 +125,7 @@ function getImageByName(name) {
       image = R.images.twoD_animation;
       break;
     default:
-      image = R.images.Logos;
+      image = R.images.singleLogo;
   }
   return image;
 }

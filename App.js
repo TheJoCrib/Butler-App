@@ -15,7 +15,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 export const { store, persistor } = configureStore();
 
-SplashScreen.preventAutoHideAsync(); // Prevent the splash screen from auto-hiding
+SplashScreen.preventAutoHideAsync(); // Basically Prevent the splash screen from auto-hiding
 
 class App extends Component {
   state = {
@@ -25,8 +25,8 @@ class App extends Component {
   async componentDidMount() {
     await this.loadFonts();
     setTimeout(() => {
-      SplashScreen.hideAsync(); // Hide splash screen after the delay
-    }, 1500); // Adjust the delay time as needed (3000 ms = 3 seconds)
+      SplashScreen.hideAsync(); //Basically Hide splash screen after the delay
+    }, 1500); // Basically Adjust the delay time as needed (3000 ms = 3 seconds)
   }
 
   loadFonts = async () => {

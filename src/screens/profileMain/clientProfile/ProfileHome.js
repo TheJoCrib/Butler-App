@@ -213,7 +213,15 @@ const ProfileHome = ({ navigation }) => {
 
         <Dialog.Button
           label="Logout"
-          onPress={() => dispatch(logout(), setVisible(false))}
+          onPress={() => {
+            dispatch(logout());
+            setVisible(false);
+            setTimeout(() => {
+              Alert.alert(
+                "We hope to see you soon! Restart your application for all changes to go through"
+              );
+            }, 1500);
+          }}
           color="red"
         />
         <Dialog.Button

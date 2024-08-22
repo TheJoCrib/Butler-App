@@ -19,7 +19,11 @@ import {
   getJobInvites,
   getJobs,
 } from "../../../modules/common/actions";
-import { acceptJobInvite, getJobDetail } from "../../../network/jobApi";
+import {
+  acceptJobInvite,
+  getJobDetail,
+  declineJobInvite,
+} from "../../../network/jobApi";
 import { inputContainers } from "../../../containers/input";
 
 const JobDetail = (props) => {
@@ -50,7 +54,24 @@ const JobDetail = (props) => {
       .catch((err) => {});
   };
 
-  const decline = () => {};
+  const decline = () => {
+    if (job?.job?._id) {
+      declineJobInvite(job.job._id)
+        .then((data) => {
+          console.log("Job invite declined:", data);
+          if (data?.status === "CLOSED" || data?.status === "APPROVED") {
+            props.navigation.goBack();
+            dispatch(getJobInvites());
+            dispatch(getJobs());
+          }
+        })
+        .catch((err) => {
+          console.error("Error declining job invite:", err);
+        });
+    } else {
+      console.error("Job ID is missing, cannot decline the invite.");
+    }
+  };
 
   return (
     <SafeAreaView

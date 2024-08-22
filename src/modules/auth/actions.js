@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import * as Actions from "./constants";
 
 /**

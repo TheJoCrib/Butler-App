@@ -52,3 +52,17 @@ export async function acceptJobInvite(jobID, acceptStatus) {
     }
   });
 }
+
+export async function declineJobInvite(jobID) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await putRequest("job/me/invites/" + jobID + "?accepted=false");
+      console.log("declineJobInvite response is", response);
+      resolve(response);
+    } catch (error) {
+      handleError(error?.response?.data || "");
+      reject(error?.response?.data || "");
+    }
+  });
+}
+

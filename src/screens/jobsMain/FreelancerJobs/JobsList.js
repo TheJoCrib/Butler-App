@@ -23,11 +23,17 @@ const JobsList = ({ navigation, route }) => {
   const { jobType } = route.params;
   const { jobs } = useSelector((state) => state.jobs);
 
+  let activeJobs = jobs.filter((d) => d.status == "PENDING");
+
   return (
     <MainBackground showButler>
       <View style={styles.mainView}>
         <Text style={styles.mainTxt}>{jobType}</Text>
+
         <View style={{ height: screenHeightInPercent(3) }} />
+        {jobType == "New Jobs" && activeJobs.length === 0 && (
+          <Text style={styles.noJobtxt}>No New Jobs</Text>
+        )}
         <FlatList
           data={
             jobType == "New Jobs"
@@ -119,6 +125,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: R.fonts.Maven_bold,
     fontSize: screenHeightInPercent(3.4),
+  },
+  noJobtxt: {
+    color: R.colors.Black,
+    textAlign: "center",
+    fontFamily: R.fonts.Maven_regular,
+    fontSize: screenHeightInPercent(2),
   },
   cardBG: {
     backgroundColor: R.colors.ExtraLightGrey2,

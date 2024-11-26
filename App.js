@@ -25,9 +25,9 @@ class App extends Component {
   async componentDidMount() {
     const loaded = await this.loadFonts();
     if(loaded) {
-      SplashScreen.hideAsync();
+      await SplashScreen.hideAsync();
     }
-    
+
     /*
     setTimeout(() => {
       SplashScreen.hideAsync(); //Basically Hide splash screen after the delay

@@ -23,16 +23,23 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    await this.loadFonts();
+    const loaded = await this.loadFonts();
+    if(loaded) {
+      SplashScreen.hideAsync();
+    }
+    
+    /*
     setTimeout(() => {
       SplashScreen.hideAsync(); //Basically Hide splash screen after the delay
     }, 1500); // Basically Adjust the delay time as needed (3000 ms = 3 seconds)
+    */
   }
 
   loadFonts = async () => {
     try {
       await Font.loadAsync(fonts);
       this.setState({ fontsLoaded: true });
+      return true
     } catch (error) {
       console.error("Error loading fonts:", error);
     }

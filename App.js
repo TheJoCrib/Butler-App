@@ -12,6 +12,8 @@ import Toast from "react-native-toast-notifications";
 import { View, ActivityIndicator } from "react-native";
 import "./src/utils/logBoxRendering";
 import * as SplashScreen from "expo-splash-screen";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 
 export const { store, persistor } = configureStore();
 
@@ -22,9 +24,28 @@ class App extends Component {
     fontsLoaded: false,
   };
 
+  async registerForPushNotificationsAsync() {
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        console.error(
+          "Permission not granted to get push token for push notification!"
+        );
+        return;
+      }
+    }
+  }
+
   async componentDidMount() {
+    await this.registerForPushNotificationsAsync(); 
     const loaded = await this.loadFonts();
-    if(loaded) {
+    if (loaded) {
       await SplashScreen.hideAsync();
     }
 
@@ -39,7 +60,7 @@ class App extends Component {
     try {
       await Font.loadAsync(fonts);
       this.setState({ fontsLoaded: true });
-      return true
+      return true;
     } catch (error) {
       console.error("Error loading fonts:", error);
     }
